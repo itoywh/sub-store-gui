@@ -2,16 +2,18 @@
 
 一个安装后即可使用的 Sub-Store 桌面客户端。应用通过 Electron 在本机启动官方 Sub-Store 前后端，不要求用户安装 Node.js、Docker 或浏览器扩展。
 
+> 本仓库是 [`shiteThings/sub-store-gui`](https://github.com/shiteThings/sub-store-gui) 的自维护 fork：内置上游 Sub-Store 已升级，且构建目标仅保留 macOS Apple Silicon（arm64）。
+
 ## 当前能力
 
 - 内置官方 Sub-Store GUI 与 Node 后端
 - 仅监听 `127.0.0.1`，不暴露到局域网
 - 使用随机 API 路径，并限制后端 CORS 来源
 - 订阅、组合订阅、脚本、文件和同步配置持久化到系统应用数据目录
-- Windows、macOS、Linux 打包配置（x64 与 ARM64）
+- macOS Apple Silicon（arm64）打包配置
 - 固定上游版本并进行 SHA-256 校验
 
-当前固定版本：Sub-Store `2.36.55`，Sub-Store Front End `2.29.10`。详见 [`vendor-lock.json`](vendor-lock.json)。
+当前固定版本：Sub-Store `2.42.5`，Sub-Store Front End `2.34.1`。详见 [`vendor-lock.json`](vendor-lock.json)。
 
 ## 架构
 
@@ -56,7 +58,7 @@ npm run dist:mac
 npm run dist:linux
 ```
 
-产物位于 `release/`。GitHub Actions 会在三个原生系统上分别构建 x64 与 ARM64 安装包。正式分发前应把 `package.json` 中的占位维护者邮箱替换为项目邮箱，并配置 Windows 代码签名和 Apple Developer ID/公证；未签名安装包会触发系统安全提示。
+产物位于 `release/`。本 fork 的 GitHub Actions 只构建 macOS arm64 安装包（`.dmg` 与 `.zip`）。正式分发前应配置 Apple Developer ID 与公证；未签名安装包会触发系统安全提示。
 
 ## 用户数据
 

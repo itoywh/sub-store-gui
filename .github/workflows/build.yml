@@ -12,17 +12,7 @@ permissions:
 
 jobs:
   package:
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - os: ubuntu-latest
-            target: linux
-          - os: windows-latest
-            target: win
-          - os: macos-latest
-            target: mac
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-latest
     env:
       CSC_IDENTITY_AUTO_DISCOVERY: 'false'
     steps:
@@ -34,14 +24,11 @@ jobs:
       - run: npm ci
       - run: npm run vendor:sync
       - run: npm test
-      - run: npx electron-builder --${{ matrix.target }} --x64 --arm64 --publish never
+      - run: npx electron-builder --mac --arm64 --publish never
       - uses: actions/upload-artifact@v4
         with:
-          name: sub-store-desktop-${{ matrix.target }}
+          name: sub-store-desktop-mac-arm64
           path: |
-            release/*.AppImage
-            release/*.deb
-            release/*.exe
             release/*.dmg
             release/*.zip
           if-no-files-found: error
